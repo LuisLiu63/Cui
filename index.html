@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+</head>
+<style>
+    body {
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        background-color: #EDECEB;
+        font-family: "Open Sans", Arial, sans-serif;
+        color: #454545
+    }
+    
+    .fl {
+        float: left;
+        margin-left: 5px
+    }
+    
+    .fr {
+        float: right;
+        margin-right: 5px
+    }
+    
+    .pa-1 {
+        padding: 10px;
+    }
+    
+    .float_R {
+        float: right
+    }
+    
+    .row {
+        position: relative;
+        margin-bottom: 3em
+    }
+    
+    .row:before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: -20px;
+        width: 100%;
+        height: 1px;
+        background-image: -webkit-linear-gradient(right, transparent, #ccc 50%, transparent);
+        background-image: -moz-linear-gradient(right, transparent, #ccc 50%, transparent);
+        background-image: -ms-linear-gradient(right, transparent, #ccc 50%, transparent);
+        background-image: -o-linear-gradient(right, transparent, #ccc 50%, transparent);
+        background-image: linear-gradient(right, transparent, #ccc 50%, transparent);
+    }
+    
+    .pos_abs {
+        position: absolute;
+    }
+    
+    .hideCR {
+        display: inline-block;
+        position: absolute;
+        z-index: -1;
+        width: 0;
+        height: 0;
+        opacity: 0
+    }
+    
+    .slow {
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease
+    }
+    
+    .btn_wrap {
+        display: inline-block;
+        position: relative;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100px
+    }
+    
+    .btn_wrap input.btn_checkbox {
+        display: inline-block;
+        position: absolute;
+        z-index: -1;
+        width: 0;
+        height: 0;
+        opacity: 0
+    }
+    
+    .btn_wrap label.btn_label {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        padding: 6px 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #ccc;
+        cursor: pointer;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease
+    }
+    /*click btn*/
+    
+    .btn_wrap input#btn1.btn_checkbox:checked~label {
+        color: #fff;
+        background-color: #33CC66
+    }
+    
+    .btn_wrap input#btn2.btn_checkbox:checked~label {
+        color: #fff;
+        background-color: #990000
+    }
+    /*slide btn*/
+    
+    .btn_wrap.slide {
+        padding: 6px 10px;
+        border: 1px solid #ccc
+    }
+    
+    .btn_wrap.slide label.btn_label.label_slide {
+        top: 0;
+        width: 50%;
+        padding: 0;
+        line-height: 2em;
+        background-color: #66CCFF
+    }
+    
+    .btn_wrap.slide input#btn3.btn_checkbox:checked~label {
+        left: 0
+    }
+    /*stir btn*/
+    
+    .btn_wrap.stir {
+        width: 50px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 50% 50% 0 0/50% 50%;
+    }
+    
+    .btn_wrap.stir .label_stir {
+        bottom: 20px;
+        width: 4px;
+        height: 50px;
+        padding: 10px 0;
+        margin-left: -2px;
+        -moz-transform-origin: 50% 100%;
+        -moz-transform: rotate(-45deg);
+    }
+    
+    .btn_wrap.stir .label_stir:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: -3px;
+        bottom: -5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ccc;
+    }
+    
+    .btn_wrap.stir .label_stir i {
+        /*content:'';*/
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: -8px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #0f0;
+    }
+    
+    .btn_wrap.stir input#btn4.btn_checkbox:checked~label {
+        -moz-transform: rotate(45deg);
+    }
+    
+    .btn_wrap.stir input#btn4.btn_checkbox:checked~label i {
+        background-color: #f00;
+    }
+    /*radio group*/
+    
+    .btn_wrap.radio_group .label_radio {
+        background-color: #00CCFF
+    }
+    
+    .btn_wrap.radio_group .btn_radio:checked~label {
+        outline: 1px dashed #0099FF;
+        outline-offset: 1px;
+        color: #fff
+    }
+    /*radio slide*/
+    
+    .btn_wrap.radio_slide {
+        width: 420px
+    }
+    
+    .btn_wrap.radio_slide .btn_label {
+        width: 100px
+    }
+    
+    .btn_wrap.radio_slide .radio_pointer {
+        z-index: -1;
+        position: absolute;
+        left: 0;
+        top: -8px;
+        width: 106px;
+        height: 40px;
+        /*background-color:#FFCC33;*/
+        border: 0 solid #9999FF;
+        border-width: 5px 0 5px 0;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease
+    }
+    
+    .btn_wrap.radio_slide #radio5.btn_radio_slide:checked~.radio_pointer {
+        left: 0
+    }
+    
+    .btn_wrap.radio_slide #radio5.btn_radio_slide:checked~.radio_block:nth-of-type(1) {
+        color: #fff;
+        background-color: #6666FF;
+    }
+    
+    .btn_wrap.radio_slide #radio6.btn_radio_slide:checked~.radio_pointer {
+        left: 105px
+    }
+    
+    .btn_wrap.radio_slide #radio6.btn_radio_slide:checked~.radio_block:nth-of-type(2) {
+        color: #fff;
+        background-color: #6666FF;
+    }
+    
+    .btn_wrap.radio_slide #radio7.btn_radio_slide:checked~.radio_pointer {
+        left: 209px
+    }
+    
+    .btn_wrap.radio_slide #radio7.btn_radio_slide:checked~.radio_block:nth-of-type(3) {
+        color: #fff;
+        background-color: #6666FF;
+    }
+    
+    .btn_wrap.radio_slide #radio8.btn_radio_slide:checked~.radio_pointer {
+        left: 314px
+    }
+    
+    .btn_wrap.radio_slide #radio8.btn_radio_slide:checked~.radio_block:nth-of-type(4) {
+        color: #fff;
+        background-color: #6666FF;
+    }
+    /*checkbox banner*/
+    
+    .banner_wrap {
+        display: inline-block;
+        position: relative;
+        width: 400px;
+        padding-bottom: 35px;
+        /*outline:1px dotted #000;
+        outline-offset:10px;*/
+        /*border-bottom:1px dotted #f00*/
+    }
+    
+    .banner_click .banner_radio {
+        width: 0;
+        height: 0;
+        opacity: 0
+    }
+    
+    .banner_click .banner_radio,
+    .banner_click .btn_toNext {
+        position: absolute;
+        cursor: pointer
+    }
+    
+    .banner_click .btn_toNext {
+        width: 10px;
+        height: 7px;
+        bottom: 5px;
+        right: 10%;
+        background-color: #999;
+        border-radius: 1px;
+        /*border:1px solid #33CC66*/
+    }
+    
+    .banner_click .btn_toNext:after {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        right: -20px;
+        top: -7px;
+        border: 10px solid transparent;
+        border-left-color: #999999;
+        border-radius: 2px
+    }
+    
+    .banner_wrap .wrap_slider,
+    .banner_wrap .wrap_slider .slider_inner .inner_item {
+        position: relative;
+        width: 400px;
+        height: 100px;
+        line-height: 100px;
+        overflow: hidden;
+        /*border:1px solid #ccc;*/
+    }
+    
+    .banner_wrap .wrap_slider .slider_inner {
+        position: absolute;
+        left: 0px;
+        width: 1600px;
+        text-align: left;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease
+    }
+    
+    .banner_wrap .wrap_slider .slider_inner .inner_item {
+        display: inline-block;
+        text-align: center;
+        color: #fff
+    }
+    
+    .banner_wrap .wrap_slider .slider_inner .inner_item:nth-of-type(odd) {
+        background-color: #CA4040
+    }
+    
+    .banner_wrap .wrap_slider .slider_inner .inner_item:nth-of-type(even) {
+        background-color: #FF8604
+    }
+    
+    #btn5_label {
+        z-index: 2
+    }
+    
+    #btn5:checked~.wrap_slider>.slider_inner {
+        left: 0px;
+        /*-webkit-transition-duration:0s;
+        -moz-transition-duration: 0s*/
+    }
+    
+    #btn5:checked~#btn6_label {
+        z-index: 3;
+    }
+    
+    #btn6:checked~.wrap_slider>.slider_inner {
+        left: -400px
+    }
+    
+    #btn6:checked~#btn7_label {
+        z-index: 3
+    }
+    
+    #btn7:checked~.wrap_slider>.slider_inner {
+        left: -800px
+    }
+    
+    #btn7:checked~#btn8_label {
+        z-index: 3
+    }
+    
+    #btn8:checked~.wrap_slider>.slider_inner {
+        left: -1200px
+    }
+    
+    #btn8:checked~#btn8_label {
+        z-index: 1
+    }
+    /*panel click*/
+    
+    .panel_container {
+        width: 400px;
+        margin: 0 auto;
+        text-align: left
+    }
+    
+    .panel_click .panels_label {
+        display: inline-block;
+        width: 80px;
+        padding: 3px 5px;
+        background-color: #ccc;
+        cursor: pointer;
+        text-align: center
+    }
+    
+    .panel_click .panel_body {
+        display: none;
+        padding: 10px;
+        text-indent: 2em;
+        background-color: #fff
+    }
+    
+    .panel_head:nth-of-type(1):checked~.panel_body:nth-of-type(1),
+    .panel_head:nth-of-type(2):checked~.panel_body:nth-of-type(2),
+    .panel_head:nth-of-type(3):checked~.panel_body:nth-of-type(3),
+    .panel_head:nth-of-type(4):checked~.panel_body:nth-of-type(4) {
+        display: block
+    }
+    
+    .panel_head:nth-of-type(1):checked~.panels_label:nth-of-type(1),
+    .panel_head:nth-of-type(2):checked~.panels_label:nth-of-type(2),
+    .panel_head:nth-of-type(3):checked~.panels_label:nth-of-type(3),
+    .panel_head:nth-of-type(4):checked~.panels_label:nth-of-type(4) {
+        background-color: #fff
+    }
+    /*accordion click*/
+    
+    .accordion_container {
+        width: 400px;
+        margin: 0 auto;
+    }
+    
+    .accordion_wrap .accordion_label {
+        display: block;
+        padding: 3px 0;
+        background-color: #ccc;
+        cursor: pointer
+    }
+    
+    .accordion_wrap .accordion_content {
+        height: 0;
+        margin: 0 0 10px 0;
+        padding: 0 10px;
+        overflow: hidden;
+        text-align: left;
+        background-color: #fff;
+        -webkit-transition: all .3s ease;
+        -moz-transition: all .3s ease
+    }
+    
+    .accordion_wrap .accordion_control:checked~.accordion_content {
+        height: 100px
+    }
+    /*thumbnail*/
+    
+    .banner_thumb {
+        width: 400px;
+        overflow: hidden
+    }
+    
+    .banner_thumb .thumb_control {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        opacity: 0
+    }
+    
+    .thumb_wrap {
+        margin-bottom: 10px
+    }
+    
+    .thumb_wrap,
+    .thumb_wrap .thumb_slider {
+        width: 100%;
+        overflow: hidden
+    }
+    
+    .thumb_wrap .thumb_slider {
+        width: 400%;
+    }
+    
+    .thumb_wrap .thumb_slider .slider_item {
+        display: inline-block;
+        width: 25%;
+        height: 100px;
+        line-height: 100px;
+        color: #fff
+    }
+    
+    .thumb_wrap .thumb_slider .slider_item:nth-of-type(even),
+    .banner_thumb .banner_thumbnail:nth-of-type(even) {
+        background-color: #4390EE
+    }
+    
+    .thumb_wrap .thumb_slider .slider_item:nth-of-type(odd),
+    .banner_thumb .banner_thumbnail:nth-of-type(odd) {
+        background-color: #CA4040
+    }
+    
+    .thumb_wrap .thumb_slider .slider_item:nth-of-type(3n+1),
+    .banner_thumb .banner_thumbnail:nth-of-type(3n+1) {
+        background-color: #FF8604
+    }
+    
+    .banner_thumb .controls_wrap {
+        -webkit-transform: translateX(140px);
+        -moz-transform: translateX(140px);
+        color: #fff
+    }
+    
+    .banner_thumb .banner_thumbnail {
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer
+    }
+    /*控制轮播*/
+    
+    #thumb1:checked~.thumb_wrap .thumb_slider {
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0)
+    }
+    
+    #thumb2:checked~.thumb_wrap .thumb_slider {
+        -webkit-transform: translateX(-25%);
+        -moz-transform: translateX(-25%)
+    }
+    
+    #thumb3:checked~.thumb_wrap .thumb_slider {
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%)
+    }
+    
+    #thumb4:checked~.thumb_wrap .thumb_slider {
+        -webkit-transform: translateX(75%);
+        -moz-transform: translateX(-75%)
+    }
+    /*控制缩略图移动*/
+    
+    #thumb1:checked~.slide_flow {
+        -webkit-transform: translateX(140px);
+        -moz-transform: translateX(140px);
+    }
+    
+    #thumb2:checked~.slide_flow {
+        -webkit-transform: translateX(60px);
+        -moz-transform: translateX(60px)
+    }
+    
+    #thumb3:checked~.slide_flow {
+        -webkit-transform: translateX(-20px);
+        -moz-transform: translateX(-20px)
+    }
+    
+    #thumb4:checked~.slide_flow {
+        -webkit-transform: translateX(-100px);
+        -moz-transform: translateX(-100px)
+    }
+    /*modal*/
+    
+    .modal_wrap {
+        display: inline-block;
+        position: relative;
+        width: 400px;
+    }
+    
+    .modal_wrap .modal_btn {
+        padding: 5px;
+        border-radius: 5px;
+        color: #fff;
+        background-color: #337ab7
+    }
+    
+    .modal_wrap .modal_bg {
+        display: inline-block;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5)
+    }
+    
+    .modal_content {
+        display: inline-block;
+        position: fixed;
+        z-index: 11;
+        width: 50%;
+        min-height: 300px;
+        padding: 10px;
+        text-align: left;
+        background-color: #fff
+    }
+    
+    .modal_content .modal_close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer
+    }
+    
+    .modal_content h1.modal_title {
+        text-align: center
+    }
+    
+    .fixCenter {
+        top: 50%;
+        left: 50%;
+        -moz-transform: translate(-50%, -50%)
+    }
+    
+    .modal_wrap .modal_bg,
+    .modal_content {
+        display: none
+    }
+    
+    #modal_open:checked~.modal_bg,
+    #modal_open:checked~.modal_content {
+        display: block
+    }
+</style>
+
+<body>
+    <!--复选按钮-->
+    <div class='row'>
+        <div class='btn_wrap'>
+            <input id='btn1' class='btn_checkbox' type="checkbox">
+            <label for="btn1" class='btn_label'>Green</label>
+        </div>
+        <div class='btn_wrap'>
+            <input id='btn2' class='btn_checkbox' type="checkbox">
+            <label for="btn2" class='btn_label'>Red</label>
+        </div>
+    </div>
+    <!--单选开关-->
+    <div class='row'>
+        <div class='btn_wrap slide'>
+            <input id='btn3' class='btn_checkbox' type="checkbox">
+            <span class='fl'>开</span><span class='fr'>关</span>
+            <label for="btn3" class='btn_label label_slide pos_abs'>Press</label>
+        </div>
+    </div>
+    <!--摇杆开关-->
+    <div class='row'>
+        <div class='btn_wrap stir'>
+            <input id='btn4' class='btn_checkbox' type="checkbox">
+            <label for="btn4" class='btn_label label_stir pos_abs'><i></i></label>
+        </div>
+    </div>
+    <!--单选按钮组-->
+    <div class='row'>
+        <div class='btn_wrap radio_group'>
+            <input id='radio1' type="radio" class='btn_checkbox btn_radio' name='radio_group' checked=checked>
+            <label for="radio1" class='btn_label label_radio'>Button</label>
+        </div>
+        <div class='btn_wrap radio_group'>
+            <input id='radio2' type="radio" class='btn_checkbox btn_radio' name='radio_group'>
+            <label for="radio2" class='btn_label label_radio'>Button</label>
+        </div>
+        <div class='btn_wrap radio_group'>
+            <input id='radio3' type="radio" class='btn_checkbox btn_radio' name='radio_group'>
+            <label for="radio3" class='btn_label label_radio'>Button</label>
+        </div>
+        <div class='btn_wrap radio_group'>
+            <input id='radio4' type="radio" class='btn_checkbox btn_radio' name='radio_group'>
+            <label for="radio4" class='btn_label label_radio'>Button</label>
+        </div>
+    </div>
+    <!--导航active类-->
+    <div class='row'>
+        <div class='btn_wrap radio_slide'>
+            <input id='radio5' type="radio" class='btn_checkbox btn_radio_slide' name='radio_slide' checked=checked>
+            <input id='radio6' type="radio" class='btn_checkbox btn_radio_slide' name='radio_slide'>
+            <input id='radio7' type="radio" class='btn_checkbox btn_radio_slide' name='radio_slide'>
+            <input id='radio8' type="radio" class='btn_checkbox btn_radio_slide' name='radio_slide'>
+            <label for="radio5" class='btn_label radio_block'>ONE</label>
+            <label for="radio6" class='btn_label radio_block'>TWO</label>
+            <label for="radio7" class='btn_label radio_block'>THREE</label>
+            <label for="radio8" class='btn_label radio_block'>FOUR</label>
+            <span class='radio_pointer'></span>
+        </div>
+    </div>
+    <!--tab组件-->
+    <div class='row'>
+        <div class='panel_container'>
+            <div class='panel_wrap panel_click'>
+                <input id='panel1' class='hideCR panel_head' type="radio" name='panel_control' checked=checked>
+                <input id='panel2' class='hideCR panel_head' type="radio" name='panel_control'>
+                <input id='panel3' class='hideCR panel_head' type="radio" name='panel_control'>
+                <input id='panel4' class='hideCR panel_head' type="radio" name='panel_control'>
+                <label for="panel1" class='panels_label'>HOME</label>
+                <label for="panel2" class='panels_label'>INTRO</label>
+                <label for="panel3" class='panels_label'>DOCS</label>
+                <label for="panel4" class='panels_label'>CONTACT</label>
+                <div id='panel1' class='panel_body'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+                <div id='panel2' class='panel_body'>
+                    williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui
+                    irure terry richardson ex squid.
+                </div>
+                <div id='panel3' class='panel_body'>
+                    Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+                </div>
+                <div id='panel4' class='panel_body'>
+                    anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip
+                    jean shorts ullamco ad vinyl cillum PBR.
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--单选手风琴-->
+    <div class='row'>
+        <div class='accordion_container'>
+            <div class='accordion_wrap'>
+                <input id='accordion1' class='hideCR accordion_control' type="radio" name='accordion'>
+                <label for="accordion1" class='accordion_label'>HTML</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+            <div class='accordion_wrap'>
+                <input id='accordion2' class='hideCR accordion_control' type="radio" name='accordion'>
+                <label for="accordion2" class='accordion_label'>CSS</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+            <div class='accordion_wrap'>
+                <input id='accordion3' class='hideCR accordion_control' type="radio" name='accordion'>
+                <label for="accordion3" class='accordion_label'>JAVASCRIPT</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--复选手风琴-->
+    <div class='row'>
+        <div class='accordion_container'>
+            <div class='accordion_wrap'>
+                <input id='accordion4' class='hideCR accordion_control' type="checkbox" name='accordion'>
+                <label for="accordion4" class='accordion_label'>HTML</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+            <div class='accordion_wrap'>
+                <input id='accordion5' class='hideCR accordion_control' type="checkbox" name='accordion'>
+                <label for="accordion5" class='accordion_label'>CSS</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+            <div class='accordion_wrap'>
+                <input id='accordion6' class='hideCR accordion_control' type="checkbox" name='accordion'>
+                <label for="accordion6" class='accordion_label'>JAVASCRIPT</label>
+                <div class='accordion_content'>
+                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
+                    Mustache cliche tempor, williamsburg
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--向右轮播-->
+    <div class='row'>
+        <div class='banner_wrap banner_click'>
+            <input id='btn5' class='banner_radio' type="radio" name='banner_control' checked=checked>
+            <input id='btn6' class='banner_radio' type="radio" name='banner_control'>
+            <input id='btn7' class='banner_radio' type="radio" name='banner_control'>
+            <input id='btn8' class='banner_radio' type="radio" name='banner_control'>
+            <label for="btn5" id='btn5_label' class='btn_toNext'></label>
+            <label for="btn6" id='btn6_label' class='btn_toNext'></label>
+            <label for="btn7" id='btn7_label' class='btn_toNext'></label>
+            <label for="btn8" id='btn8_label' class='btn_toNext'></label>
+            <div class='wrap_slider'>
+                <div class='slider_inner'>
+                    <span class='inner_item'>A-A-A-A</span><span class='inner_item'>B-B-B-B</span><span class='inner_item'>C-C-C-C</span><span class='inner_item'>D-D-D-D</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--缩略图轮播-->
+    <div class='row'>
+        <div class='banner_wrap banner_thumb'>
+            <input id='thumb1' class='thumb_control' type="radio" name='thumb_control'>
+            <input id='thumb2' class='thumb_control' type="radio" name='thumb_control'>
+            <input id='thumb3' class='thumb_control' type="radio" name='thumb_control'>
+            <input id='thumb4' class='thumb_control' type="radio" name='thumb_control'>
+            <div class='thumb_wrap'>
+                <div class='thumb_slider slow'>
+                    <div class='slider_item'>FIRST PAGE</div><div class='slider_item'>SECOND PAGE</div><div class='slider_item'>THIRD PAGE</div><div class='slider_item'>FOURTH PAGE</div>
+                </div>
+            </div>
+            <div class='controls_wrap slide_flow slow'>
+                <label for="thumb1" class='banner_thumbnail'>ONE</label>
+                <label for="thumb2" class='banner_thumbnail'>TWO</label>
+                <label for="thumb3" class='banner_thumbnail'>THREE</label>
+                <label for="thumb4" class='banner_thumbnail'>FOUR</label>
+            </div>
+        </div>
+    </div>
+    <!--modal模态框-->
+    <div class='row'>
+        <div class='modal_wrap'>
+            <div class='modal_group'>
+                <input id='modal_open' class='hideCR' type="checkbox">
+                <label class='modal_btn' for="modal_open">OPEN A MODAL</label>
+                <label class='modal_bg' for="modal_open"></label>
+                <div class='modal_content fixCenter'>
+                    <label for='modal_open' class='modal_close'>X</label>
+                    <h1>Css Modal</h1>
+                    <p>
+                        通过css的checkbox实现的模态框，可复用，不冲突。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
